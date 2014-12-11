@@ -1,0 +1,37 @@
+{
+  "name": "jacket",
+  "version": "0.1.0",
+  "description": "CLI for Apache mod_jk status worker (because antiquated tech is cool!)",
+  "main": "index.js",
+  "bin": {
+    "jacket": "cli.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nexdrew/jacket.git"
+  },
+  "keywords": [
+    "apache",
+    "mod_jk",
+    "jkmount",
+    "status"
+  ],
+  "author": {
+    "name": "Andrew Goode",
+    "email": "andrewbgoode@gmail.com",
+    "url": "http://abg.silvrback.com"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nexdrew/jacket/issues"
+  },
+  "homepage": "https://github.com/nexdrew/jacket",
+  "dependencies": {
+    "commander": "^2.5.0",
+    "request": "^2.51.0",
+    "xml2json": "^0.5.1"
+  }
+}
