@@ -12,7 +12,7 @@ Boss: "In 3 hours."
 
 me: "... Ok ..."
 
-So before you go any further, here are some the caveats of a module built by me in a couple of hours:
+So before you go any further, here are some of the caveats of a module built by me in a couple of hours:
 
 - This is a hack. Use at your own risk.
 - Apparently, it doesn't work on Windows [without additional effort](http://node-xmpp.github.io/doc/nodeexpat.html#toc_6).
@@ -64,37 +64,37 @@ Here's an example:
 ```json
 {
 	"dev": [
-		{ "host": "dev1", "jkUrl": "http://dev1.intra.net:81/jkstatus/" },
-		{ "host": "dev2", "jkUrl": "http://dev2.intra.net:81/jkstatus/" }
+		{ "host": "friendlydev1", "jkUrl": "http://friendlydev1.intra.net:81/jkstatus/" },
+		{ "host": "cuddlydev2", "jkUrl": "http://cuddlydev2.intra.net:81/jkstatus/" }
 	],
 	"prd": [
 		{ "host": "scaryprd1", "jkUrl": "http://scaryprd1.jacket.com/jkstatus/" },
-		{ "host": "scaryprd2", "jkUrl": "http://scaryprd2.jacket.com/jkstatus/" },
-		{ "host": "scaryprd3", "jkUrl": "http://scaryprd3.jacket.com/jkstatus/" },
-		{ "host": "scaryprd4", "jkUrl": "http://scaryprd4.jacket.com/jkstatus/" }
+		{ "host": "meanprd2", "jkUrl": "http://meanprd2.jacket.com/jkstatus/" },
+		{ "host": "willhurtyouprd3", "jkUrl": "http://willhurtyouprd3.jacket.com/jkstatus/" },
+		{ "host": "dontmessthisupprd4", "jkUrl": "http://dontmessthisupprd4.jacket.com/jkstatus/" }
 	]
 }
 ```
 
 ## Usage
 
-Query a set of hosts defined for the given environment and output the status of each configured JBoss node/worker.
+Query a set of hosts defined for the given environment and output the status of each configured Tomcat node/worker.
 The `<env>` value you specify must be defined in your `jacket.json` file in the current working directory.
 
 ```sh
 $ jacket list <env>
 ```
 
-Update the activation status for given JBoss node/worker in the given environment.
+Update the activation status for given Tomcat node/worker in the given environment.
 The `<env>` value you specify must be defined in your `jacket.json` file in the current working directory.
-The `<jbossHost>` value should come from the output of `jacket list <env>`.
+The `<tomcatHost>` value should come from the output of `jacket list <env>`.
 The `<status>` value should be one of:
 - `ACT` for *active* (the node/worker will receive traffic from the Apache load balancer pool)
 - `DIS` for *disabled* (the node/worker will only receive sticky traffic from existing sessions - meant to bleed traffic off of this worker)
 - `STP` for *stopped* (the node/worker will stop receiving any traffic)
 
 ```sh
-$ jacket edit <env> <jbossHost> <status>
+$ jacket edit <env> <tomcatHost> <status>
 ```
 
 For questions about the load balancer member status, see the [mod_jk documentation](http://tomcat.apache.org/connectors-doc/generic_howto/loadbalancers.html#Advanced Load Balancer Worker Properties).
