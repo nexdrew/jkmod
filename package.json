@@ -1,6 +1,6 @@
 {
   "name": "jacket",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "CLI for Apache mod_jk status worker (because antiquated tech is cool!)",
   "main": "index.js",
   "bin": {

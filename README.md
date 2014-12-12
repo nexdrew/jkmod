@@ -101,4 +101,6 @@ For questions about the load balancer member status, see the [mod_jk documentati
 
 ## Everything else
 
-Good luck.
+If you need more functionality, consider using [the jk status worker Ant tasks](http://tomcat.apache.org/connectors-doc/miscellaneous/jkstatustasks.html) instead.
+
+Or just upgrade to mod_cluster. 😉
