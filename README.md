@@ -15,7 +15,7 @@ me: "... Ok ..."
 So before you go any further, here are some of the caveats of a module built by me in a couple of hours:
 
 - This is a hack. Use at your own risk.
-- Apparently, it doesn't work on Windows [without additional effort](http://node-xmpp.github.io/doc/nodeexpat.html#toc_6).
+- ~~Apparently, it doesn't work on Windows [without additional effort](http://node-xmpp.github.io/doc/nodeexpat.html#toc_6).~~
 - The code is really hairy.
 - The console output is mostly JSON.
 - It doesn't work without configuration.
@@ -34,10 +34,10 @@ On Unix:
 $ npm install -g jacket
 ```
 
-On Windows:
+~~On Windows:~~
 
 1. Install [MTPuTTY](http://ttyplus.com/multi-tabbed-putty/).
-2. SSH into a Unix box.
+2. ~~SSH into a Unix box.~~
 3. See Unix install above.
 
 ## Configuration
