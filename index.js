@@ -1,6 +1,6 @@
 'use strict';
 var request = require('request');
-var parser = require('xml2json');
+var parseString = require('xml2js').parseString;
 
 var envMap = require('optional')('./jacket.json') || {};
 
@@ -16,38 +16,44 @@ function querySingleApache(cfg) {
 		// var norm = [], normB;
 		var hosts = {};
 
-		var json = parser.toJson(body, { object: true });
-		var balancers = json['jk:status']['jk:balancers'];
-		// console.log(JSON.stringify(balancers, null, '\t'));
-		for(var prop in balancers) {
-			if(prop === 'jk:balancer') {
-				var balancersArray = balancers[prop], balancer;
-				for(var i = 0; i < balancersArray.length; i++) {
-					balancer = balancersArray[i];
-					// normB = { name: balancer.name, members: [] };
-					var memberArray = balancer['jk:member'];
-					for(var j = 0; j < memberArray.length; j++) {
-						var member = memberArray[j];
-						// console.log(JSON.stringify(member, null, '\t'));
+		parseString(body, function(error, json) {
+			var balancers = json['jk:status']['jk:balancers'];
+			// console.log(JSON.stringify(balancers, null, '\t'));
+			for(var h = 0; h < balancers.length; h++) {
+				var hobj = balancers[h];
+				for(var prop in hobj) {
+					if(prop === 'jk:balancer') {
+						var balancersArray = hobj[prop], balancer;
+						for(var i = 0; i < balancersArray.length; i++) {
+							balancer = balancersArray[i];
+							// normB = { name: balancer["$"].name, members: [] };
+							var memberArray = balancer['jk:member'];
 
-						// if(cfg.allMemberData) normB.members.push(member);
-						// else normB.members.push({ name: member.name, host: member.host, activation: member.activation });
+							for(var j = 0; j < memberArray.length; j++) {
+								var member = memberArray[j]["$"];
+								// console.log(JSON.stringify(member, null, '\t'));
 
-						if(!hosts[member.host]) hosts[member.host] = { status: 'unknown', apacheHosts: {} };
-						if(member.activation === 'ACT' || hosts[member.host].status === 'ACT') hosts[member.host].status = 'ACT';
-						else if(member.activation === 'DIS' || hosts[member.host].status === 'DIS') hosts[member.host].status = 'DIS';
-						else hosts[member.host].status = member.activation;
+								// if(cfg.allMemberData) normB.members.push(member);
+								// else normB.members.push({ name: member.name, host: member.host, activation: member.activation });
 
-						if(!hosts[member.host].apacheHosts[cfg.host]) hosts[member.host].apacheHosts[cfg.host] = [];
-						hosts[member.host].apacheHosts[cfg.host].push({ balancer: balancer.name, name: member.name, activation: member.activation });
+								if(!hosts[member.host]) hosts[member.host] = { status: 'unknown', apacheHosts: {} };
+								if(member.activation === 'ACT' || hosts[member.host].status === 'ACT') hosts[member.host].status = 'ACT';
+								else if(member.activation === 'DIS' || hosts[member.host].status === 'DIS') hosts[member.host].status = 'DIS';
+								else hosts[member.host].status = member.activation;
+
+								if(!hosts[member.host].apacheHosts[cfg.host]) hosts[member.host].apacheHosts[cfg.host] = [];
+								hosts[member.host].apacheHosts[cfg.host].push({ balancer: balancer["$"].name, name: member.name, activation: member.activation });
+							}
+							// norm.push(normB);
+						}
 					}
-					// norm.push(normB);
 				}
 			}
-		}
-		// console.log(norm);
-		// if(cfg.callback) cfg.callback(norm, null);
-		if(cfg.callback) cfg.callback(hosts, null, cfg.host, cfg.finalCallback);
+			// console.log(norm);
+			// if(cfg.callback) cfg.callback(norm, null);
+			if(cfg.callback) cfg.callback(hosts, null, cfg.host, cfg.finalCallback);
+
+		});
 	});
 }
 
