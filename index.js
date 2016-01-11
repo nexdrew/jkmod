@@ -2,7 +2,7 @@
 var request = require('request');
 var parseString = require('xml2js').parseString;
 
-var envMap = require('optional')('./jacket.json') || {};
+var envMap = require('optional')('./jkmod.json') || {};
 
 function querySingleApache(cfg) {
 	cfg = cfg || {};
