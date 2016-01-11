@@ -3,11 +3,10 @@
 
 var commander = require('commander');
 var pkg = require('./package.json');
-var jacket = require('./');
+var jkmod = require('./');
 
 commander.version(pkg.version);
 
-// console.log(jacket);
 var good = false;
 
 commander
@@ -15,7 +14,7 @@ commander
 	.description('List status of all configured JBoss workers in all Apache hosts for the given environment')
 	.action(function list(env) {
 		good = true;
-		jacket.list(env);
+		jkmod.list(env);
 	});
 
 commander
@@ -23,7 +22,7 @@ commander
 	.description('Set given JBoss worker to given status in all Apache hosts for the given environment')
 	.action(function edit(env, jbossHost, status) {
 		good = true;
-		jacket.edit(env, jbossHost, status);
+		jkmod.edit(env, jbossHost, status);
 	});
 
 commander.parse(process.argv);

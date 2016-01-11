@@ -1,4 +1,4 @@
-# ʇǝʞɔɐՐ
+# poɯʞɾ
 
 CLI for Apache mod_jk status worker (because antiquated tech is cool!)
 
@@ -29,23 +29,23 @@ Also, like most good hacks, it will probably become heavily used and relied on (
 ## Install
 
 ```sh
-$ npm install -g jacket
+$ npm install -g jkmod
 ```
 
 ## Configuration
 
-Currently requires a `jacket.json` file to be defined in the current working directory. The structure of the JSON config is:
+Currently requires a `jkmod.json` file to be defined in the current working directory. The structure of the JSON config is:
 
 ```json
 {
-	"your-environment-name-here": [
-		{ "host": "apache-host-1", "jkUrl": "http://apache-host-1/jkstatus/" },
-		{ "host": "apache-host-2", "jkUrl": "http://apache-host-1/jkstatus/" }
-	],
-	"another-environment-name-here": [
-		{ "host": "apache-host-3", "jkUrl": "http://apache-host-3.yourdomain.com/jkstatus/" },
-		{ "host": "apache-host-4", "jkUrl": "http://apache-host-4.yourdomain.com/jkstatus/" }
-	]
+  "your-environment-name-here": [
+    { "host": "apache-host-1", "jkUrl": "http://apache-host-1/jkstatus/" },
+    { "host": "apache-host-2", "jkUrl": "http://apache-host-1/jkstatus/" }
+  ],
+  "another-environment-name-here": [
+    { "host": "apache-host-3", "jkUrl": "http://apache-host-3.yourdomain.com/jkstatus/" },
+    { "host": "apache-host-4", "jkUrl": "http://apache-host-4.yourdomain.com/jkstatus/" }
+  ]
 }
 ```
 
@@ -55,41 +55,41 @@ Here's an example:
 
 ```json
 {
-	"dev": [
-		{ "host": "friendlydev1", "jkUrl": "http://friendlydev1.intra.net:81/jkstatus/" },
-		{ "host": "cuddlydev2", "jkUrl": "http://cuddlydev2.intra.net:81/jkstatus/" }
-	],
-	"prd": [
-		{ "host": "scaryprd1", "jkUrl": "http://scaryprd1.jacket.com/jkstatus/" },
-		{ "host": "meanprd2", "jkUrl": "http://meanprd2.jacket.com/jkstatus/" },
-		{ "host": "willhurtyouprd3", "jkUrl": "http://willhurtyouprd3.jacket.com/jkstatus/" },
-		{ "host": "dontmessthisupprd4", "jkUrl": "http://dontmessthisupprd4.jacket.com/jkstatus/" }
-	]
+  "dev": [
+    { "host": "friendlydev1", "jkUrl": "http://friendlydev1.intra.net:81/jkstatus/" },
+    { "host": "cuddlydev2", "jkUrl": "http://cuddlydev2.intra.net:81/jkstatus/" }
+  ],
+  "prd": [
+    { "host": "scaryprd1", "jkUrl": "http://scaryprd1.jkmod.com/jkstatus/" },
+    { "host": "meanprd2", "jkUrl": "http://meanprd2.jkmod.com/jkstatus/" },
+    { "host": "willhurtyouprd3", "jkUrl": "http://willhurtyouprd3.jkmod.com/jkstatus/" },
+    { "host": "dontmessthisupprd4", "jkUrl": "http://dontmessthisupprd4.jkmod.com/jkstatus/" }
+  ]
 }
 ```
 
 ## Usage
 
 Query a set of hosts defined for the given environment and output the status of each configured Tomcat node/worker.
-The `<env>` value you specify must be defined in your `jacket.json` file in the current working directory.
+The `<env>` value you specify must be defined in your `jkmod.json` file in the current working directory.
 
 ```sh
-$ jacket list <env>
+$ jkmod list <env>
 ```
 
 Update the activation status for given Tomcat node/worker in the given environment.
-The `<env>` value you specify must be defined in your `jacket.json` file in the current working directory.
-The `<tomcatHost>` value should come from the output of `jacket list <env>`.
+The `<env>` value you specify must be defined in your `jkmod.json` file in the current working directory.
+The `<tomcatHost>` value should come from the output of `jkmod list <env>`.
 The `<status>` value should be one of:
 - `ACT` for *active* (the node/worker will receive traffic from the Apache load balancer pool)
 - `DIS` for *disabled* (the node/worker will only receive sticky traffic from existing sessions - meant to bleed traffic off of this worker)
 - `STP` for *stopped* (the node/worker will stop receiving any traffic)
 
 ```sh
-$ jacket edit <env> <tomcatHost> <status>
+$ jkmod edit <env> <tomcatHost> <status>
 ```
 
-For questions about the load balancer member status, see the [mod_jk documentation](http://tomcat.apache.org/connectors-doc/generic_howto/loadbalancers.html#Advanced Load Balancer Worker Properties).
+For questions about the load balancer member status, see the [mod_jk documentation](http://tomcat.apache.org/connectors-doc/common_howto/loadbalancers.html#Advanced%20Load%20Balancer%20Worker%20Properties).
 
 ## Everything else
 

@@ -1,17 +1,17 @@
 {
-  "name": "jacket",
+  "name": "jkmod",
   "version": "0.1.3",
   "description": "CLI for Apache mod_jk status worker (because antiquated tech is cool!)",
   "main": "index.js",
   "bin": {
-    "jacket": "cli.js"
+    "jkmod": "cli.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/nexdrew/jacket.git"
+    "url": "https://github.com/nexdrew/jkmod.git"
   },
   "keywords": [
     "apache",
@@ -21,14 +21,13 @@
   ],
   "author": {
     "name": "Andrew Goode",
-    "email": "andrewbgoode@gmail.com",
-    "url": "http://abg.silvrback.com"
+    "email": "andrewbgoode@gmail.com"
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/nexdrew/jacket/issues"
+    "url": "https://github.com/nexdrew/jkmod/issues"
   },
-  "homepage": "https://github.com/nexdrew/jacket",
+  "homepage": "https://github.com/nexdrew/jkmod",
   "dependencies": {
     "commander": "^2.5.0",
     "optional": "^0.1.2",
